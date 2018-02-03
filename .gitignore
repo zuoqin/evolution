@@ -1,0 +1,17 @@
+/target
+/lib
+/classes
+/checkouts
+/pom.xml
+*.jar
+*.class
+*.cljs~
+*.clj~
+/README.md~
+/.lein-*
+
+/.env
+/.nrepl-port
+/log
+/resources/public/js/**
+project.clj

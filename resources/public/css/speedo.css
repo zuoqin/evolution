@@ -1,0 +1,306 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:tahoma;
+  user-select:none;
+  cursor: default;
+}
+body{
+  background-color:#000;
+  perspective: 2500px;
+  position: relative;
+}
+
+/*
+.container{
+  width:640px;
+  height:480px;
+  margin: 50px auto;
+  overflow:hidden;
+  background-color:#000;
+  position:relative;
+}
+*/
+.speedometr{
+  width: 550px;
+  height: 550px;
+  border: solid 4px #E86519;
+  border-radius: 50%;
+  margin: 50px auto;
+  position:relative;
+  animation-name: speedo;
+  animation-duration: 4s;
+}
+.black{
+  width:100%;
+  height:95px;
+  background:#000;
+  position:absolute;
+  bottom:-5px;
+  left:0px;
+}
+.ris-w{
+  position:absolute;
+  width:35px;
+  height:8px;
+  background-color:#fff;
+  animation-name: ris-w;
+  animation-duration: 2.5s;
+}
+.ris-w:nth-child(1){
+  top:310px;
+  left:10px;
+  transform: rotate(-13deg);
+  animation-delay: 0s;
+}
+.ris-w:nth-child(2){
+  top: 230px;
+  left:9px;
+  transform: rotate(10deg);
+  animation-delay: .1s;
+}
+.ris-w:nth-child(3){
+  top: 230px;
+  right:9px;
+  transform: rotate(-10deg);
+  animation-delay: 1.0s;
+}
+.ris-w:nth-child(4){
+  top: 155px;
+  left:34px;
+  transform: rotate(29deg);
+  animation-delay: .2s;
+}
+.ris-w:nth-child(5){
+  top: 155px;
+  right:34px;
+  transform: rotate(-29deg);
+  animation-delay: .9s;
+}
+.ris-w:nth-child(6){
+  top: 90px;
+  left:82px;
+  transform: rotate(45deg);
+  animation-delay: .3s;
+}
+.ris-w:nth-child(7){
+  top: 90px;
+  right:82px;
+  transform: rotate(-45deg);
+  animation-delay: .8s;
+}
+.ris-w:nth-child(8){
+  top: 42px;
+  left:151px;
+  transform: rotate(63deg);
+  animation-delay: .4s;
+}
+.ris-w:nth-child(9){
+  top: 42px;
+  right:151px;
+  transform: rotate(-63deg);
+  animation-delay: .7s;
+}
+.ris-w:nth-child(10){
+  top: 20px;
+  left:254px;
+  transform: rotate(90deg);
+  animation-delay: .5s;
+}
+.ris-w:nth-child(11){
+  top:310px;
+  right:10px;
+  transform: rotate(13deg);
+  animation-delay: 1.1s;
+}
+.ris{
+  width: 16px;
+  height: 4px;
+  background-color: #E86519;
+  position: absolute;
+  animation-name: ris;
+  animation-duration: 4s;
+}
+.ris-o1{
+  top: 275px;
+  left: 5px;
+  transform: rotate(-6deg);
+}
+.ris-o2{
+  top: 275px;
+  right: 5px;
+  transform: rotate(6deg);
+}
+.ris-o3{
+  top: 190px;
+  left: 17px;
+  transform: rotate(17deg);
+}
+.ris-o4{
+  top: 190px;
+  right: 17px;
+  transform: rotate(-17deg);
+}
+.ris-o5{
+  top: 115px;
+  left: 56px;
+  transform: rotate(40deg);
+}
+.ris-o6{
+  top: 115px;
+  right: 56px;
+  transform: rotate(-40deg);
+}
+.ris-o7{
+  top: 55px;
+  left: 118px;
+  transform: rotate(54deg);
+}
+.ris-o8{
+  top: 55px;
+  right: 118px;
+  transform: rotate(-54deg);
+}
+.ris-o9{
+  top: 17px;
+  left: 208px;
+  transform: rotate(75deg);
+}
+.ris-o10{
+  top: 17px;
+  right: 208px;
+  transform: rotate(-75deg);
+}
+
+span.speedo{
+  color:#fff;
+  font-size: 35px;
+  display: block;
+  position: absolute;
+  animation-name: speed;
+  animation-duration: 5.8s;
+}
+
+span.s-0{
+  top: 280px;
+  left: 57px;
+}
+span.s-20{
+  top: 215px;
+  left: 55px;
+}
+span.s-40{
+  top: 157px;
+  left: 73px;
+}
+span.s-60{
+  top: 105px;
+  left: 112px;
+}
+span.s-80{
+  top: 64px;
+  left: 165px;
+}
+span.s-100{
+  top: 42px;
+  left: 241px;
+}
+span.s-120{
+  top: 64px;
+  right: 165px;
+}
+span.s-140{
+  top: 105px;
+  right: 112px;
+}
+span.s-160{
+  top: 157px;
+  right: 73px;
+}
+span.s-180{
+  top: 215px;
+  right: 55px;
+}
+span.s-200{
+  top: 280px;
+  right: 57px;
+}
+.strelka{
+  width: 250px;
+  height: 8px;
+  background-color: #FFA429;
+  border-radius: 50% 5px 5px 50%;
+  position: absolute;
+  left: 22px;
+  top: calc(50% - 8px / 2);
+  transform: rotate(-10deg);
+  transform-origin: 100%;
+  animation-name: strelka;
+  transition:.6s;
+  animation-duration: 9s;
+}
+@keyframes speedo{
+  0%{
+    opacity: 0;
+  }
+  30%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes ris-w{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes ris{
+  0%{
+    opacity: 0;
+  }
+  60%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes speed{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes strelka{
+  0%{
+    opacity: 0;
+  }
+  45%{
+    opacity: 0;
+  }
+  60%{
+    opacity: 1;
+  }
+  61%{
+    transform: rotate(-10deg);
+  }
+  80%{
+    transform: rotate(190deg);
+  }
+  100%{
+    transform: rotate(-10deg);
+  }
+}

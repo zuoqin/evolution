@@ -26,22 +26,6 @@
 
 (def jquery (js* "$"))
 
-(defn setError [error]
-
-  (swap! shelters/app-state assoc-in [:modalText] 
-    (str (:error error))
-  )
- 
-  ;;(.log js/console (str  "In setLoginError" (:error error) ))
-  (jquery
-    (fn []
-      (-> (jquery "#loginModal")
-        (.modal)
-      )
-    )
-  )
-)
-
 
 (defn OnSendCommand [response]
    (.log js/console (str response)) 
@@ -62,16 +46,6 @@
 )
 
 
-(defn ondeletesuccess [id]
-  (let [
-      tables (:tables @shelters/app-state)
-      newtables (remove (fn [table] (if (= (:id table) id) true false)) tables)
-    ]
-    
-    ;(swap! shelters/app-state assoc-in [:token] newdata )
-    (swap! shelters/app-state assoc-in [:tables] newtables)
-  )
-)
 
 
 (defn deletetable [id] 
@@ -81,36 +55,6 @@
         ;{:keys [message error]} (<! (:ws_channel @shelters/app-state))
       ]
       (>! (:ws_channel @shelters/app-state) {:$type "remove_table" :id id})
-
-      (let [
-          ;{:keys [ws-channel error]} (<! (ws-ch (str settings/socketpath) {:format :json}))
-          {:keys [message error]} (<! (:ws_channel @shelters/app-state))
-        ]
-        (if error
-          (js/console.log "Uh oh:" error)
-          (let []
-            (if (not (nil? message))
-              (let [result (get message "$type")]
-                (if (= result "removal_failed")
-                  (let [
-                    tr1 (.log js/console (str "remove failed"))
-                    ]
-                    (setError {:error "Error remove"})
-                    
-                  )
-                  (let [
-                    tr1 (.log js/console (str "remove successfull"))
-                    
-                    ]
-                    (ondeletesuccess id)
-                  )
-                )
-              )
-
-            )
-          )
-        )
-      )
     )
   )
 )

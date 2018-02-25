@@ -29,6 +29,24 @@
 
 (enable-console-print!)
 
+(def jquery (js* "$"))
+
+(defn setError [error]
+
+  (swap! shelters/app-state assoc-in [:modalText] 
+    (str (:error error))
+  )
+ 
+  ;;(.log js/console (str  "In setLoginError" (:error error) ))
+  (jquery
+    (fn []
+      (-> (jquery "#loginModal")
+        (.modal)
+      )
+    )
+  )
+)
+
 (def iconBase "/images/")
 (def application
   (js/document.getElementById "app"))
@@ -48,7 +66,7 @@
 
 
 (def ch (chan (dropping-buffer 2)))
-(def jquery (js* "$"))
+
 (defonce app-state (atom  {:error "" :modalText "Modal Text" :modalTitle "Modal Title" :state 0} ))
 
 
@@ -84,6 +102,17 @@
 (defn restartsocket []
   (if (not (nil? (:ws_channel @shelters/app-state))) (close! (:ws_channel @shelters/app-state)))
   (put! ch 45)
+)
+
+(defn ondeletesuccess [id]
+  (let [
+      tables (:tables @shelters/app-state)
+      newtables (remove (fn [table] (if (= (:id table) id) true false)) tables)
+    ]
+    
+    ;(swap! shelters/app-state assoc-in [:token] newdata )
+    (swap! shelters/app-state assoc-in [:tables] newtables)
+  )
 )
 
 
@@ -128,6 +157,21 @@
                     newtables (into [] (conj deltable table) )
                 ]
                 (.log js/console (str "table updated from server: id=" (:id table) "; name=" (:name table)))
+                (swap! shelters/app-state assoc-in [:tables] newtables)
+              )
+              "removal_failed"
+              (let [
+                tr1 (.log js/console (str "remove failed"))
+                ]
+                (setError {:error "Error remove"})
+              )
+              "remove successfull"
+              ;(ondeletesuccess id)
+              (let [id (get message "id")
+                    tables (:tables @shelters/app-state)
+                    newtables (remove (fn [table] (if (= (:id table) id) true false)) tables)
+                ]
+                (.log js/console (str "remove successfull!!! removed table from server:" id))
                 (swap! shelters/app-state assoc-in [:tables] newtables)
               )
               (.log js/console "Unknown message from server")
